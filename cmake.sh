@@ -9,8 +9,13 @@ src="${workspacefolder}/src"
 
 # Ensure the build directory and other necessary directories exist
 mkdir -p "${workspacefolder}/build"
-mkdir -p "${workspacefolder}/build/bin"  # Make sure the bin directory exists
 mkdir -p "${workspacefolder}/tmp/log"  # Ensure the log directory exists, corrected to use workspace tmp directory
+# Ensure the bin directory exists
+mkdir -p "${workspacefolder}/bin"
+# ensure the lib directory exists
+mkdir -p "${workspacefolder}/build/lib"
+# ensure the arc directory exists
+mkdir -p "${workspacefolder}/build/arc"
 
 # Ask the user which subdirectory of src to compile
 echo "Available subdirectories in src:"

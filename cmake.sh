@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 # Get the current working directory of the script.
 workspacefolder=$(pwd)
 

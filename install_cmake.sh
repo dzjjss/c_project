@@ -1,8 +1,7 @@
 #!/bin/bash
 
-# 更新APT软件包列表
 echo "正在更新APT软件包列表..."
-sudo apt update
+apt update
 
 # 检查g++是否安装
 echo "检查g++安装情况..."

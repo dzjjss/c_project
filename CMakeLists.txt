@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0.0)
-project(L4)
+project(L5)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
@@ -8,7 +8,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
 
 # Add source files from the specified subdirectory
-file(GLOB SOURCES "${PROJECT_SOURCE_DIR}/src/L4/*.cpp")
+file(GLOB SOURCES "${PROJECT_SOURCE_DIR}/src/L5/*.cpp")
 
 # Add include directories
 include_directories("${PROJECT_SOURCE_DIR}/include")

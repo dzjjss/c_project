@@ -14,9 +14,8 @@
 -- Detecting CXX compile features - done
 -- Configuring done
 -- Generating done
--- Build files have been written to: /home/kaizen/ZombieGame/build
-Scanning dependencies of target L4
-[ 33%] Building CXX object CMakeFiles/L4.dir/src/L4/main.cpp.o
-[ 66%] Building CXX object CMakeFiles/L4.dir/src/L4/zombie.cpp.o
-[100%] Linking CXX executable bin/L4
-[100%] Built target L4
+-- Build files have been written to: /home/kaizen/c_project/build
+Scanning dependencies of target L5
+[ 50%] Building CXX object CMakeFiles/L5.dir/src/L5/main.cpp.o
+[100%] Linking CXX executable bin/L5
+[100%] Built target L5

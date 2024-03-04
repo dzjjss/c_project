@@ -1,7 +1,0 @@
--- Configuring done
--- Generating done
--- Build files have been written to: /home/kaizen/ZombieGame/build
-Scanning dependencies of target test
-[ 50%] Building CXX object CMakeFiles/test.dir/src/test/test.cpp.o
-[100%] Linking CXX executable bin/test
-[100%] Built target test

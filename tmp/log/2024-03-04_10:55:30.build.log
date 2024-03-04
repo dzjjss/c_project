@@ -1,0 +1,8 @@
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/kaizen/ZombieGame/build
+Scanning dependencies of target L4
+[ 33%] Building CXX object CMakeFiles/L4.dir/src/L4/main.cpp.o
+[ 66%] Building CXX object CMakeFiles/L4.dir/src/L4/zombie.cpp.o
+[100%] Linking CXX executable bin/L4
+[100%] Built target L4

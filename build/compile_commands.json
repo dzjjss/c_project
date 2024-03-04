@@ -1,0 +1,12 @@
+[
+{
+  "directory": "/home/kaizen/ZombieGame/build",
+  "command": "/usr/bin/g++   -I/home/kaizen/ZombieGame/include  -g   -std=gnu++17 -o CMakeFiles/L4.dir/src/L4/main.cpp.o -c /home/kaizen/ZombieGame/src/L4/main.cpp",
+  "file": "/home/kaizen/ZombieGame/src/L4/main.cpp"
+},
+{
+  "directory": "/home/kaizen/ZombieGame/build",
+  "command": "/usr/bin/g++   -I/home/kaizen/ZombieGame/include  -g   -std=gnu++17 -o CMakeFiles/L4.dir/src/L4/zombie.cpp.o -c /home/kaizen/ZombieGame/src/L4/zombie.cpp",
+  "file": "/home/kaizen/ZombieGame/src/L4/zombie.cpp"
+}
+]

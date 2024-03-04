@@ -1,0 +1,17 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     '/Users/kaizen/Downloads/ZombieGame/Tutorial2GameIO'
+relocations:
+  - { offsetInCU: 0x26, offset: 0x26, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x0, symBinAddr: 0x100002F88, symSize: 0x10C }
+  - { offsetInCU: 0x2CA1, offset: 0x2CA1, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x0, symBinAddr: 0x100002F88, symSize: 0x10C }
+  - { offsetInCU: 0x2D2C, offset: 0x2D2C, size: 0x8, addend: 0x0, symName: __Z12getPlayerPosiPPc, symObjAddr: 0x10C, symBinAddr: 0x100003094, symSize: 0x134 }
+  - { offsetInCU: 0x2D90, offset: 0x2D90, size: 0x8, addend: 0x0, symName: __Z8getWidthiPPc, symObjAddr: 0x240, symBinAddr: 0x1000031C8, symSize: 0x12C }
+  - { offsetInCU: 0x2DF4, offset: 0x2DF4, size: 0x8, addend: 0x0, symName: __Z9getHeightiPPc, symObjAddr: 0x36C, symBinAddr: 0x1000032F4, symSize: 0x12C }
+  - { offsetInCU: 0x2E58, offset: 0x2E58, size: 0x8, addend: 0x0, symName: __Z8gameLoop8positionii, symObjAddr: 0x498, symBinAddr: 0x100003420, symSize: 0x25C }
+  - { offsetInCU: 0x2F3F, offset: 0x2F3F, size: 0x8, addend: 0x0, symName: __Z10movePlayer8positionS_ii, symObjAddr: 0x6F4, symBinAddr: 0x10000367C, symSize: 0x130 }
+  - { offsetInCU: 0x2FB1, offset: 0x2FB1, size: 0x8, addend: 0x0, symName: __Z10updateGridPPc8positionS1_PS1_j, symObjAddr: 0x824, symBinAddr: 0x1000037AC, symSize: 0x138 }
+  - { offsetInCU: 0x308F, offset: 0x308F, size: 0x8, addend: 0x0, symName: __Z9printGridPPc8position, symObjAddr: 0x95C, symBinAddr: 0x1000038E4, symSize: 0xC0 }
+  - { offsetInCU: 0x30FD, offset: 0x30FD, size: 0x8, addend: 0x0, symName: __Z10userAction8positionS_Pcj, symObjAddr: 0xA1C, symBinAddr: 0x1000039A4, symSize: 0x1C0 }
+  - { offsetInCU: 0x3161, offset: 0x3161, size: 0x8, addend: 0x0, symName: __Z7scanf_sPKcPcm, symObjAddr: 0xCA4, symBinAddr: 0x100003C2C, symSize: 0xE4 }
+  - { offsetInCU: 0x31B7, offset: 0x31B7, size: 0x8, addend: 0x0, symName: __Z8strcpy_sPcmPKc, symObjAddr: 0xD88, symBinAddr: 0x100003D10, symSize: 0xD0 }
+...

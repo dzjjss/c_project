@@ -1,0 +1,30 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "shell",
+            "label": "Fuck",
+            "command": "sh",
+            "args": [
+                "-c",
+                "g++ ${workspaceFolder}/src/L4/*.cpp -g -std=c++17 -o ${fileDirname}/tmp/bin/${fileBasenameNoExtension}"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared",
+                "focus": false,
+                "echo": true,
+                "showReuseMessage": true,
+                "clear": false
+            },
+            "detail": "调试器生成的任务。"
+        }
+    ]
+}

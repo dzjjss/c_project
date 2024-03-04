@@ -1,0 +1,1 @@
+/usr/bin/g++  -g  -rdynamic CMakeFiles/L4.dir/src/L4/main.cpp.o CMakeFiles/L4.dir/src/L4/zombie.cpp.o  -o bin/L4 

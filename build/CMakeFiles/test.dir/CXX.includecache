@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/test.h
+iostream
+-
+string
+-
+vector
+-
+
+/home/kaizen/ZombieGame/src/test/test.cpp
+test.h
+/home/kaizen/ZombieGame/src/test/test.h
+

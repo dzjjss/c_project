@@ -39,14 +39,23 @@ project(${subdir})
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-# Set the output directory for executables
-set(EXECUTABLE_OUTPUT_PATH \${PROJECT_BINARY_DIR}/bin)
-
 # Add source files from the specified subdirectory
 file(GLOB SOURCES "\${PROJECT_SOURCE_DIR}/src/${subdir}/*.cpp")
 
 # Add include directories
 include_directories("\${PROJECT_SOURCE_DIR}/include")
+
+# Add library directories
+link_directories("\${PROJECT_SOURCE_DIR}/lib")
+
+# 设置二进制文件的输出目录
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY \${PROJECT_SOURCE_DIR}/bin)
+
+# 设置库文件的输出目录
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY \${CMAKE_BINARY_DIR}/lib)
+
+# 设置其他文件的输出目录
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY \${CMAKE_BINARY_DIR}/arc)
 
 # Add executable based on source files
 add_executable(\${PROJECT_NAME} \${SOURCES})
@@ -67,7 +76,7 @@ if make >> "$log_file" 2>&1; then
     read run
     echo "\n"
     if [ "$run" = "y" ]; then
-        "${workspacefolder}/build/bin/${subdir}"
+        "${workspacefolder}/bin/${subdir}"
     fi
 else
     echo "Build failed. Check $log_file for errors."

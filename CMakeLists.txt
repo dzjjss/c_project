@@ -14,7 +14,7 @@ include_directories("${PROJECT_SOURCE_DIR}/include")
 link_directories("${PROJECT_SOURCE_DIR}/lib")
 
 # 设置二进制文件的输出目录
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/build/bin)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/bin)
 
 # 设置库文件的输出目录
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib)
@@ -22,7 +22,8 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib)
 # 设置其他文件的输出目录
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/arc)
 
-set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+# output compile_commands.json to the root directory for clangd
+# set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # Add executable based on source files
 add_executable(${PROJECT_NAME} ${SOURCES})

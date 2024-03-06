@@ -12,35 +12,39 @@ log_file="${workspacefolder}/tmp/log/${timestamp}.build.log"
 
 # Ensure the source directory exists
 dir_check() {
-# Ensure the build directory and other necessary directories exist
-mkdir -p "${workspacefolder}/build"
-# Ensure the log directory exists, corrected to use workspace tmp directory
-mkdir -p "${workspacefolder}/tmp/log"
-# Ensure the bin directory exists
-mkdir -p "${workspacefolder}/bin"
-# ensure the lib directory exists
-mkdir -p "${workspacefolder}/build/lib"
-# ensure the arc directory exists
-mkdir -p "${workspacefolder}/build/arc"
+    # Ensure the build directory and other necessary directories exist
+    mkdir -p "${workspacefolder}/build"
+    # Ensure the log directory exists, corrected to use workspace tmp directory
+    mkdir -p "${workspacefolder}/tmp/log"
+    # Ensure the bin directory exists
+    mkdir -p "${workspacefolder}/bin"
+    # ensure the lib directory exists
+    mkdir -p "${workspacefolder}/build/lib"
+    # ensure the arc directory exists
+    mkdir -p "${workspacefolder}/build/arc"
 }
 
-build_picker(){
-# Ask the user which subdirectory of src to compile
-echo "Available subdirectories in src:"
-ls "${src}"
-echo "Please enter the name of the subdirectory you wish to compile:"
-read subdir
+build_picker() {
+    # Ask the user which subdirectory of src to compile
+    echo "Available subdirectories in src:"
+    ls "${src}"
 
-# Validate that the user input corresponds to an existing directory
-if [ ! -d "${src}/${subdir}" ]; then
-    echo "The specified directory does not exist."
-    exit 1
-fi
+    while true; do
+        echo "Please enter the name of the subdirectory you wish to compile:"
+        read subdir
+
+        # Check if the input is not empty and is a directory
+        if [ -n "$subdir" ] && [ -d "${src}/${subdir}" ]; then
+            break # exit the loop if input is valid
+        else
+            echo "Invalid input. Please enter a valid subdirectory name."
+        fi
+    done
 }
 
-cmake_file_generator(){
-# Start creating the CMakeLists.txt content in the root directory.
-cat << EOF > ${workspacefolder}/CMakeLists.txt
+cmake_file_generator() {
+    # Start creating the CMakeLists.txt content in the root directory.
+    cat <<EOF >${workspacefolder}/CMakeLists.txt
 cmake_minimum_required(VERSION 3.0.0)
 project(${subdir})
 
@@ -66,48 +70,49 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY \${PROJECT_SOURCE_DIR}/lib)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY \${CMAKE_BINARY_DIR}/arc)
 
 # output compile_commands.json to the root directory for clangd
-# set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # Add executable based on source files
 add_executable(\${PROJECT_NAME} \${SOURCES})
 EOF
 
-echo "CMakeLists.txt has been generated in the root directory for subdirectory ${subdir}."
+    echo "CMakeLists.txt has been generated in the root directory for subdirectory ${subdir}."
 }
 
-clean_process(){
-    # rm ${workspacefolder}/compile_commands.json
-    # ln -s ${workspacefolder}/compile_commands.json ${workspacefolder}
-    echo "Do you want to clean the build files? (y/n):"
+clean_process() {
+    rm ${workspacefolder}/compile_commands.json
+    mv ${workspacefolder}/build/compile_commands.json ${workspacefolder}
+    echo "Do you want to clean the build files? ([Y]/n):"
     read clean
-    if [ "$clean" = "y" ]; then
+    if [ "$clean" != "n" ]; then
         rm -rf "${workspacefolder}/build"
     fi
-    echo "Do you want to clean the log files? (y/n):"
+    echo "Do you want to clean the log files? ([Y]/n):"
     read clean
-    if [ "$clean" = "y" ]; then
+    if [ "$clean" != "n" ]; then
         rm "${workspacefolder}/tmp/log/${timestamp}.build.log"
     fi
 }
-build_process(){
-# Run CMake to configure the project and make to build it,
-# redirecting build logs to the same log file.
-cmake .. > "$log_file" 2>&1
-if make >> "$log_file" 2>&1; then
-    echo "Build successful. Executable can be found in ${workspacefolder}/build/bin \n"
-    clean_process
-    # Execute the compiled program if needed
-    echo "Do you want to run the compiled program? (y/n):"
-    read run
-    if [ "$run" = "y" ]; then
-        "${workspacefolder}/bin/${subdir}"
+build_process() {
+    # Run CMake to configure the project and make to build it,
+    # redirecting build logs to the same log file.
+    cmake .. >"$log_file" 2>&1
+    if make >>"$log_file" 2>&1; then
+        echo "Build successful. Executable can be found in ${workspacefolder}/build/bin \n"
+
+        # Execute the compiled program if needed
+        echo "Do you want to run the compiled program? ([Y]/n):"
+        read run
+        if [ "$run" != "n" ]; then
+            "${workspacefolder}/bin/${subdir}"
+        fi
+        clean_process
+    else
+        echo "Build failed. Check $log_file for errors."
     fi
-else
-    echo "Build failed. Check $log_file for errors."
-fi
 }
 
-main(){
+main() {
     dir_check
     build_picker
     # Remove any existing CMakeLists.txt file in the root directory

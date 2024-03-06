@@ -1,7 +1,4 @@
 #include "L5.h"
-#include <iostream>
-
-using namespace std;
 
 test::test()
 {

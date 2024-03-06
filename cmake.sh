@@ -9,9 +9,10 @@ src="${workspacefolder}/src"
 
 # Ensure the build directory and other necessary directories exist
 mkdir -p "${workspacefolder}/build"
-mkdir -p "${workspacefolder}/tmp/log"  # Ensure the log directory exists, corrected to use workspace tmp directory
+# Ensure the log directory exists, corrected to use workspace tmp directory
+mkdir -p "${workspacefolder}/tmp/log"
 # Ensure the bin directory exists
-mkdir -p "${workspacefolder}/bin"
+mkdir -p "${workspacefolder}/build/bin"
 # ensure the lib directory exists
 mkdir -p "${workspacefolder}/build/lib"
 # ensure the arc directory exists
@@ -54,13 +55,15 @@ include_directories("\${PROJECT_SOURCE_DIR}/include")
 link_directories("\${PROJECT_SOURCE_DIR}/lib")
 
 # 设置二进制文件的输出目录
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY \${PROJECT_SOURCE_DIR}/bin)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY \${PROJECT_SOURCE_DIR}/build/bin)
 
 # 设置库文件的输出目录
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY \${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY \${PROJECT_SOURCE_DIR}/lib)
 
 # 设置其他文件的输出目录
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY \${CMAKE_BINARY_DIR}/arc)
+
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # Add executable based on source files
 add_executable(\${PROJECT_NAME} \${SOURCES})
@@ -76,12 +79,14 @@ cd "${workspacefolder}/build"
 cmake .. > "$log_file" 2>&1
 if make >> "$log_file" 2>&1; then
     echo "Build successful. Executable can be found in ${workspacefolder}/build/bin \n"
+    rm ${workspacefolder}/compile_commands.json
+    ln -s ${workspacefolder}/build/compile_commands.json ${workspacefolder}
     # Execute the compiled program if needed
     echo "Do you want to run the compiled program? (y/n):"
     read run
     echo "\n"
     if [ "$run" = "y" ]; then
-        "${workspacefolder}/bin/${subdir}"
+        "${workspacefolder}/build/bin/${subdir}"
     fi
 else
     echo "Build failed. Check $log_file for errors."

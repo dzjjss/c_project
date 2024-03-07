@@ -65,6 +65,9 @@ build_project() {
     cd "${workspacefolder}/build" || exit
     if cmake .. >"$log_file" 2>&1 && make >>"$log_file" 2>&1; then
         clear # Clear the screen after successful build
+        if [ -f "compile_commands.json" ]; then
+            mv compile_commands.json "${workspacefolder}/"
+        fi
         echo "Build successful. Executable files are located in ${workspacefolder}/bin"
     else
         clear # Clear the screen after build failure

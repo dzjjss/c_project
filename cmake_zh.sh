@@ -65,12 +65,17 @@ build_project() {
     cd "${workspacefolder}/build" || exit
     if cmake .. >"$log_file" 2>&1 && make >>"$log_file" 2>&1; then
         clear # 构建成功后清屏
+        if [ -f "compile_commands.json" ]; then
+            mv compile_commands.json "${workspacefolder}/"
+        fi
         echo "构建成功。可执行文件位于 ${workspacefolder}/bin"
     else
         clear # 构建失败后清屏
         echo "构建失败。请检查 $log_file 查看错误。"
     fi
 }
+
+mv make
 
 # 清理过程
 clean_up() {

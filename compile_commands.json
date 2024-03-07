@@ -1,0 +1,12 @@
+[
+{
+  "directory": "/home/kaizen/c_project/build",
+  "command": "/usr/bin/c++   -I/home/kaizen/c_project/include    -std=gnu++17 -o CMakeFiles/L4.dir/src/L4/main.cpp.o -c /home/kaizen/c_project/src/L4/main.cpp",
+  "file": "/home/kaizen/c_project/src/L4/main.cpp"
+},
+{
+  "directory": "/home/kaizen/c_project/build",
+  "command": "/usr/bin/c++   -I/home/kaizen/c_project/include    -std=gnu++17 -o CMakeFiles/L4.dir/src/L4/zombie.cpp.o -c /home/kaizen/c_project/src/L4/zombie.cpp",
+  "file": "/home/kaizen/c_project/src/L4/zombie.cpp"
+}
+]

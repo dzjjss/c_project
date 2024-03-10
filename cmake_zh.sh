@@ -6,12 +6,14 @@ initialize() {
     # 获取脚本当前工作目录
     workspacefolder="$(pwd)"
     src="${workspacefolder}/src"
+    cache_folder="${workspacefolder}/.cache"
+    cache_file="${cache_folder}/last_subdir.cache"
     timestamp=$(date +%y-%m-%d_%H:%M:%S)
     log_file="${workspacefolder}/tmp/log/${timestamp}.build.log"
 
     echo "初始化目录..."
     mkdir -p "${workspacefolder}/build" "${workspacefolder}/tmp/log" \
-        "${workspacefolder}/bin" "${workspacefolder}/build/lib" "${workspacefolder}/build/arc"
+        "${workspacefolder}/bin" "${workspacefolder}/build/lib" "${workspacefolder}/build/arc" "${cache_folder}"
 }
 
 # 选择构建目录
@@ -20,11 +22,22 @@ choose_build_directory() {
     echo "src目录下可用的子目录："
     ls "${src}"
 
+    # 检查是否存在缓存文件并读取上次的选择
+    last_subdir=""
+    if [ -f "${cache_file}" ]; then
+        last_subdir=$(cat "${cache_file}")
+        echo "上次选择的子目录为: ${last_subdir}"
+    fi
+
     while true; do
-        echo "请输入您希望编译的子目录名称："
+        echo "请输入您希望编译的子目录名称[${last_subdir}]："
         read -r subdir
+        if [ -z "$subdir" ] && [ -n "${last_subdir}" ]; then
+            subdir=${last_subdir}
+        fi
         if [ -n "$subdir" ] && [ -d "${src}/${subdir}" ]; then
             clear # 有效输入后清屏
+            echo "当前选择的子目录：${subdir}"
             break
         else
             clear # 无效输入后清屏
@@ -33,6 +46,9 @@ choose_build_directory() {
             ls "${src}" # 再次显示目录列表
         fi
     done
+
+    # 保存当前选择到缓存文件
+    echo "${subdir}" >"${cache_file}"
 }
 
 # 生成CMakeLists.txt文件
@@ -63,19 +79,27 @@ build_project() {
     clear # 清屏
     echo "开始构建过程..."
     cd "${workspacefolder}/build" || exit
+
+    # 清除上一次构建的可执行文件
+    rm -f "${workspacefolder}/bin/${subdir}"
+
     if cmake .. >"$log_file" 2>&1 && make >>"$log_file" 2>&1; then
-        clear # 构建成功后清屏
-        if [ -f "compile_commands.json" ]; then
-            mv compile_commands.json "${workspacefolder}/"
+        # 检查二进制文件是否成功生成
+        if [ -f "${workspacefolder}/bin/${subdir}" ]; then
+            clear # 构建成功后清屏
+            if [ -f "compile_commands.json" ]; then
+                mv compile_commands.json "${workspacefolder}/"
+            fi
+            echo "构建成功。可执行文件位于 ${workspacefolder}/bin。"
+        else
+            clear # 二进制文件未生成时清屏
+            echo "构建失败，未找到可执行文件。请检查日志文件 $log_file 查看错误。"
         fi
-        echo "构建成功。可执行文件位于 ${workspacefolder}/bin"
     else
-        clear # 构建失败后清屏
-        echo "构建失败。请检查 $log_file 查看错误。"
+        clear # cmake 或 make 失败后清屏
+        echo "构建失败。请检查日志文件 $log_file 查看错误。"
     fi
 }
-
-mv make
 
 # 清理过程
 clean_up() {
@@ -84,9 +108,18 @@ clean_up() {
     read -r clean_build
     [ "${clean_build:-Y}" != "n" ] && rm -rf "${workspacefolder}/build"
 
-    echo "您想要清理日志文件吗？ ([Y]/n):"
+    # 只有在构建成功的情况下才询问是否清理日志文件
+    echo "您想要清理日志文件吗？ ([Y]/n/A for all):"
     read -r clean_log
-    [ "${clean_log:-Y}" != "n" ] && rm -f "${log_file}"
+    if [ "${clean_log:-Y}" = "A" ]; then
+        echo "清理所有日志文件..."
+        rm -f "${workspacefolder}/tmp/log/"*
+    elif [ "${clean_log:-Y}" != "n" ]; then
+        echo "清理当前日志文件..."
+        rm -f "${log_file}"
+    else
+        echo "日志文件已保留以供调试: $log_file"
+    fi
 }
 
 # 执行输出文件

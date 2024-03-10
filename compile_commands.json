@@ -1,12 +1,12 @@
 [
 {
   "directory": "/home/kaizen/c_project/build",
-  "command": "/usr/bin/c++   -I/home/kaizen/c_project/include    -std=gnu++17 -o CMakeFiles/L4.dir/src/L4/main.cpp.o -c /home/kaizen/c_project/src/L4/main.cpp",
-  "file": "/home/kaizen/c_project/src/L4/main.cpp"
+  "command": "/usr/bin/c++   -I/home/kaizen/c_project/include  -g   -std=gnu++17 -o CMakeFiles/A4.dir/src/A4/A4_ShapeTester.cpp.o -c /home/kaizen/c_project/src/A4/A4_ShapeTester.cpp",
+  "file": "/home/kaizen/c_project/src/A4/A4_ShapeTester.cpp"
 },
 {
   "directory": "/home/kaizen/c_project/build",
-  "command": "/usr/bin/c++   -I/home/kaizen/c_project/include    -std=gnu++17 -o CMakeFiles/L4.dir/src/L4/zombie.cpp.o -c /home/kaizen/c_project/src/L4/zombie.cpp",
-  "file": "/home/kaizen/c_project/src/L4/zombie.cpp"
+  "command": "/usr/bin/c++   -I/home/kaizen/c_project/include  -g   -std=gnu++17 -o CMakeFiles/A4.dir/src/A4/Shape2400.cpp.o -c /home/kaizen/c_project/src/A4/Shape2400.cpp",
+  "file": "/home/kaizen/c_project/src/A4/Shape2400.cpp"
 }
 ]

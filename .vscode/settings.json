@@ -17,9 +17,6 @@
         "/usr/local/include",
         "${workspaceFolder}/lib/**"
     ],
-    "C_Cpp.intelliSenseEngine": "default",
-    "C_Cpp.intelliSenseEngineFallback": "enabled",
-    "C_Cpp.autoAddFileAssociations": true,
 
     // CMake Tools 设置
     "cmake.configureOnOpen": true,
@@ -29,6 +26,7 @@
     // 文件排除
     "files.exclude": {
         "**/.git": true,
+        "**/.cache": true,
         "**/.svn": true,
         "**/.hg": true,
         "**/CVS": true,
@@ -46,5 +44,10 @@
         "**/build": true,
         "**/.vscode": false,
         "**/tmp": true
+    },
+    "files.associations": {
+        "iostream": "cpp",
+        "ostream": "cpp",
+        "random": "cpp"
     }
 }

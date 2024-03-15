@@ -5,10 +5,10 @@
             "type": "lldb",
             "request": "launch",
             "name": "Debug",
-            "program": "${fileDirname}/tmp/bin/main",
+            "program": "${workspaceFolder}/bin/A4",
             "args": [],
             "preLaunchTask": "Fuck",
-            "cwd": "${fileDirname}"
+            "cwd": "${workspaceFolder}"
         }
     ]
 }

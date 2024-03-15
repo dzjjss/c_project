@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
-
+#include <vector>
 
 using namespace std;
 
@@ -56,8 +56,8 @@ class Shape2400
 public:
     Shape2400();
     Shape2400(BOUND newBound, RGB newColour);
-    void setBound(BOUND bnd);
-    void setColour(RGB rgb);
+    virtual void setBound(BOUND bnd);
+    void         setColour(RGB rgb);
 
     BOUND getBound();
     RGB   getColour();
@@ -103,13 +103,21 @@ private:
     double radius;
     POINT  centre;
 };
-//---------------------------------multiangle2400---------------------------------
-//  class MultiAngle2400 : public Shape2400
-//  {
-//  public:
-//      MultiAngle2400(BOUND newBound, RGB newColour)
-//          : Shape2400(newBound, newColour){};
-//      bool   isIntersectPoint(POINT pt);
-//      double getArea(int n);
-//      string toString();
-//  };
+//---------------------------------Polygon2400---------------------------------
+class Polygon2400 : public Shape2400
+{
+public:
+    Polygon2400(BOUND newBound, RGB newColour, vector<POINT> points);
+    void                 initPolygon();
+    bool                 isIntersectPoint(POINT pt);
+    void                 setBound();
+    double               getArea();
+    string               toString();
+    unsigned             getAngle() const { return n; }
+    void                 setPoints(vector<POINT> newPoints);
+    const vector<POINT>& getPoints() const { return points; }
+
+private:
+    unsigned int  n;        // number of angles
+    vector<POINT> points;   // vertices of the polygon
+};

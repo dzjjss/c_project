@@ -1,5 +1,8 @@
 #include "Shape2400.h"
 #include <cmath>
+#include <iostream>
+#include <vector>
+
 //#include <iostream> for debug, bug clangd will note that this is not used which is annoying
 
 // Blank constructor for a shape
@@ -146,17 +149,79 @@ string Circle2400::toString()
 {
     return getBoundString() + "\n" + getColourString();
 };
-//------------------------------------multiangle2400------------------------------------
-/*
-bool MultiAngle2400::isIntersectPoint(POINT pt)
+//------------------------------------Polygon2400------------------------------------
+Polygon2400::Polygon2400(BOUND newBound, RGB newColour, vector<POINT> points)
+    : Shape2400(newBound, newColour)
 {
-    BOUND b         = getBound();
-    bool  intersect = pt.xPos >= b.xPos && pt.xPos < b.xPos + b.width && pt.yPos >= b.yPos &&
-                     pt.yPos < b.yPos + b.height;
-    return intersect;
+    setPoints(points);
 };
-double MultiAngle2400::getArea(int n)
+void Polygon2400::setPoints(vector<POINT> newPoints)
 {
-    BOUND b = getBound();
+    this->points = newPoints;
+    this->n      = newPoints.size();
 };
-*/
+void Polygon2400::initPolygon()
+{
+    cout << "How many points do you want to enter?" << endl;
+    cin >> this->n;
+    points = vector<POINT>(this->n);
+    cout << "need enter coordinates of the points in a clockwise or counterclockwise order\n"
+         << endl;
+    for (int i = 0; i < this->n; i++) {
+        cout << "Enter the X_" << i + 1 << " coordinates of the point " << i + 1 << endl;
+        cin >> points[i].xPos;
+        cout << "Enter the Y_" << i + 1 << " coordinates of the point " << i + 1 << endl;
+        cin >> points[i].yPos;
+    }
+};
+void Polygon2400::setBound()
+{
+    unsigned int minX = points[0].xPos;
+    unsigned int minY = points[0].yPos;
+    unsigned int maxX = points[0].xPos;
+    unsigned int maxY = points[0].yPos;
+    for (int i = 1; i < this->n; i++) {
+        if (points[i].xPos < minX) { minX = points[i].xPos; }
+        if (points[i].yPos < minY) { minY = points[i].yPos; }
+        if (points[i].xPos > maxX) { maxX = points[i].xPos; }
+        if (points[i].yPos > maxY) { maxY = points[i].yPos; }
+    }
+    BOUND b = {minX, minY, maxX - minX, maxY - minY};
+    Shape2400::setBound(b);
+};
+bool Polygon2400::isIntersectPoint(POINT pt)
+{
+    int  count = 0;
+    int  i, j;
+    bool result = false;
+
+    for (i = 0, j = this->n - 1; i < this->n; j = i++) {
+        if ((points[i].yPos > pt.yPos) != (points[j].yPos > pt.yPos) &&
+            (pt.xPos < (points[j].xPos - points[i].xPos) * (pt.yPos - points[i].yPos) /
+                               (points[j].yPos - points[i].yPos) +
+                           points[i].xPos)) {
+            result = !result;
+        }
+    }
+
+    return result;
+};
+
+double Polygon2400::getArea()
+{
+    // Shoelace formula
+    double area = 0.0;
+    int    j    = this->n - 1;
+    for (int i = 0; i < this->n; i++) {
+        double a = (double)points[j].xPos * points[i].yPos;
+        double b = (double)points[i].xPos * points[j].yPos;
+        area += (a - b);
+        j = i;
+    }
+    return (abs(area) / 2.0);
+};
+string Polygon2400::toString()
+{
+    setBound();
+    return getBoundString() + "\n" + getColourString();
+};

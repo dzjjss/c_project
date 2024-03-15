@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.0.0)
-project(A4)
+project(test)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
-file(GLOB SOURCES "${PROJECT_SOURCE_DIR}/src/A4/*.cpp")
+file(GLOB SOURCES "${PROJECT_SOURCE_DIR}/src/test/*.cpp")
 include_directories("${PROJECT_SOURCE_DIR}/include")
 link_directories("${PROJECT_SOURCE_DIR}/lib")
 # 设置二进制文件输出目录

@@ -7,13 +7,13 @@
             "command": "sh",
             "args": [
                 "-c",
-                "g++ ${workspaceFolder}/src/L4/*.cpp -g -std=c++17 -o ${fileDirname}/tmp/bin/${fileBasenameNoExtension}"
+                "g++ ${workspaceFolder}/src/A4/*.cpp -g -std=c++17 -o ${fileDirname}/tmp/bin/${fileBasenameNoExtension}"
             ],
             "options": {
                 "cwd": "${fileDirname}"
             },
             "problemMatcher": [
-                "$gcc"
+                "$g++"
             ],
             "group": "build",
             "presentation": {
